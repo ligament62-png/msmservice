@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MSMservice – Services à Madagascar</title>
+<style>
+:root{--bg:#fbf8f3;--card:#fff;--tx:#1d2a24;--mut:#5d6b64;--pri:#0e7a4f;--on:#fff;--bd:#e4ded3;--acc:#e8a317;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121815;--card:#1b241f;--tx:#eef3ef;--mut:#9fb0a6;--pri:#3ecf8e;--on:#0b140f;--bd:#2c3a32}}
+:root[data-theme="dark"]{--bg:#121815;--card:#1b241f;--tx:#eef3ef;--mut:#9fb0a6;--pri:#3ecf8e;--on:#0b140f;--bd:#2c3a32}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:960px;margin:0 auto;padding:0 18px}
+header{border-bottom:1px solid var(--bd)}header .w{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px}
+.logo{font-weight:800;font-size:20px}.logo b{color:var(--pri)}
+.hero{padding:44px 0 28px}h1{font-size:clamp(28px,6vw,44px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--mut);max-width:560px;margin:0 0 20px}
+.btn{display:inline-block;background:var(--pri);color:var(--on);border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}
+.btn.o{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}
+h2{margin:36px 0 14px;font-size:24px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.c h3{margin:0 0 4px;font-size:17px}.c p{margin:0 0 12px;color:var(--mut);font-size:14px}
+.steps{counter-reset:s;display:grid;gap:10px}.steps div{counter-increment:s}.steps div:before{content:counter(s);display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;background:var(--acc);color:#000;font-weight:700;margin-right:10px}
+form{display:grid;gap:10px;max-width:520px}
+label{font-size:14px;color:var(--mut);display:grid;gap:4px}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px;width:100%}
+textarea{min-height:90px}
+.n{font-size:13px;color:var(--mut)}
+#adm{display:none;margin-top:40px;border:2px dashed var(--pri);border-radius:14px;padding:16px}
+#adm table{width:100%;border-collapse:collapse;font-size:14px}#adm td,#adm th{border-bottom:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+.tw{overflow-x:auto}
+footer{margin:48px 0 24px;color:var(--mut);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="w"><div class="logo">MSM<b>service</b></div><a class="btn o" href="#demande">Demander un service</a></div></header>
+<main class="w">
+<section class="hero">
+<h1>Tous vos services du quotidien, au même endroit.</h1>
+<p>Ménage, réparations, cours, livraison… Trouvez un prestataire de confiance à Madagascar. Paiement par MVola, Orange Money ou Airtel Money.</p>
+<a class="btn" href="#demande">Faire une demande</a>
+</section>
+<h2>Nos services</h2>
+<div class="g" id="svc"></div>
+<h2>Comment ça marche ?</h2>
+<div class="steps"><div>Choisissez un service et décrivez votre besoin.</div><div>Nous vous répondons sur WhatsApp avec un prestataire disponible.</div><div>Vous payez après le service, par mobile money.</div></div>
+<h2 id="demande">Faire une demande</h2>
+<form id="f">
+<label>Votre nom<input id="nm" required maxlength="80" autocomplete="name"></label>
+<label>Votre téléphone<input id="tl" required maxlength="20" inputmode="tel" autocomplete="tel" placeholder="034 00 000 00"></label>
+<label>Service<select id="sv"></select></label>
+<label>Ville / quartier<input id="vl" required maxlength="80" value="Antananarivo"></label>
+<label>Détails<textarea id="dt" maxlength="500" placeholder="Décrivez ce dont vous avez besoin"></textarea></label>
+<button class="btn" type="submit">Envoyer sur WhatsApp</button>
+<span class="n" id="msg"></span>
+</form>
+<h2>Vous êtes prestataire ?</h2>
+<p class="n" style="font-size:15px">Rejoignez MSMservice et recevez des clients près de chez vous. <a href="#" id="jp" style="color:var(--pri)">Écrivez-nous sur WhatsApp</a>.</p>
+
+<section id="adm">
+<h2 style="margin-top:0">Administration (visible uniquement par vous)</h2>
+<form id="af" style="max-width:none">
+<label>Numéro WhatsApp (format 261XXXXXXXXX)<input id="aw" maxlength="15" inputmode="numeric"></label>
+<label>Services (un par ligne : Nom | description)<textarea id="as" style="min-height:140px"></textarea></label>
+<button class="btn" type="submit">Enregistrer</button> <span class="n" id="am"></span>
+</form>
+<p class="n">Les demandes des clients arrivent directement sur votre WhatsApp.</p>
+</section>
+</main>
+<footer>© MSMservice · Madagascar</footer>
+<script>
+const DEF={whatsapp:"261344766825",services:[
+{n:"Ménage",d:"Nettoyage de maison, bureaux, après travaux."},
+{n:"Réparation",d:"Électricité, plomberie, électroménager."},
+{n:"Cours particuliers",d:"Soutien scolaire, langues, informatique."},
+{n:"Livraison",d:"Courses, colis et documents en ville."},
+{n:"Beauté & coiffure",d:"Prestataires à domicile."},
+{n:"Autre service",d:"Dites-nous ce dont vous avez besoin."}]};
+let cfg=JSON.parse(JSON.stringify(DEF)),db=null;
+const $=id=>document.getElementById(id);
+function render(){
+  const g=$("svc"),s=$("sv");g.textContent="";s.textContent="";
+  cfg.services.forEach(x=>{
+    const c=document.createElement("div");c.className="c";
+    const h=document.createElement("h3");h.textContent=x.n;
+    const p=document.createElement("p");p.textContent=x.d;
+    const b=document.createElement("a");b.className="btn o";b.href="#demande";b.textContent="Demander";
+    b.onclick=()=>{s.value=x.n};
+    c.append(h,p,b);g.append(c);
+    const o=document.createElement("option");o.textContent=x.n;s.append(o);
+  });
+  $("jp").href="https://wa.me/"+cfg.whatsapp+"?text="+encodeURIComponent("Bonjour, je suis prestataire et je souhaite rejoindre MSMservice.");
+}
+$("f").onsubmit=async e=>{
+  e.preventDefault();
+  const r={nom:$("nm").value.trim(),tel:$("tl").value.trim(),service:$("sv").value,ville:$("vl").value.trim(),details:$("dt").value.trim(),t:Date.now()};
+  const t="Bonjour MSMservice,\nService : "+r.service+"\nNom : "+r.nom+"\nTél : "+r.tel+"\nVille : "+r.ville+"\nDétails : "+(r.details||"-");
+  window.open("https://wa.me/"+cfg.whatsapp+"?text="+encodeURIComponent(t),"_blank");
+  $("msg").textContent="Merci ! Terminez l'envoi dans WhatsApp.";
+};
+render();
+(async()=>{
+  try{
+    if(!window.claude)return;
+    db=await claude.use("db");
+    if(db){
+      try{const s=await db.doc("config/site").get();const d=s&&s.exists!==false&&s.data?s.data():null;
+        if(d&&d.whatsapp&&Array.isArray(d.services)&&d.services.length){cfg={whatsapp:String(d.whatsapp),services:d.services};render()}}catch(x){}
+    }
+    const u=await claude.use("user");
+    if(u&&await u.isOwner()){
+      $("adm").style.display="block";
+      $("aw").value=cfg.whatsapp;
+      $("as").value=cfg.services.map(x=>x.n+" | "+x.d).join("\n");
+      $("af").onsubmit=async e=>{
+        e.preventDefault();
+        const w=$("aw").value.replace(/\D/g,"");
+        const sv=$("as").value.split("\n").map(l=>l.split("|")).filter(a=>a[0].trim()).map(a=>({n:a[0].trim(),d:(a[1]||"").trim()}));
+        if(!w||!sv.length){$("am").textContent="Numéro et au moins un service requis.";return}
+        try{await db.doc("config/site").set({whatsapp:w,services:sv});cfg={whatsapp:w,services:sv};render();$("am").textContent="Enregistré ✔"}
+        catch(x){$("am").textContent="Échec de l'enregistrement."}
+      };
+    }
+  }catch(x){}
+})();
+</script>
+</body>
+</html>
